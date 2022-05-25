@@ -1,0 +1,94 @@
+{
+    "marriage": [
+        {
+            "wife": {
+                "name": "Hawa",
+                "id": 1
+            },
+            "husband": {
+                "name": "Adam",
+                "id": 2
+            },
+            "status": "dead",
+            "child": [
+                {
+                    "name": "Yanto",
+                    "id": 3,
+                    "marriage": [
+                        {
+                            "wife": {
+                                "name": "Yanto",
+                                "id": 3
+                            },
+                            "husband": {
+                                "name": "Santi",
+                                "id": 4
+                            },
+                            "status": "divorced",
+                            "child": [
+                                {
+                                    "name": "Raja",
+                                    "id": 5,
+                                    "marriage": [
+                                        {
+                                            "wife": {
+                                                "name": "Yuli",
+                                                "id": 6
+                                            },
+                                            "husband": {
+                                                "name": "Raja",
+                                                "id": 5
+                                            },
+                                            "status": "marriage"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Sukirman",
+                    "id": 7,
+                    "marriage": [
+                        {
+                            "wife": {
+                                "name": "Juleha",
+                                "id": 8
+                            },
+                            "husband": {
+                                "name": "Sukirman",
+                                "id": 7
+                            },
+                            "child": [
+                                {
+                                    "name": "Mukidi"
+                                }
+                            ]
+                        },
+                        {
+                            "wife": {
+                                "name": "Susi",
+                                "id": 9
+                            },
+                            "husband": {
+                                "name": "Sukirman",
+                                "id": 7
+                            },
+                            "child": [
+                                {
+                                    "name": "Sutrisna",
+                                    "id": 10
+                                },
+                                {
+                                    "name": "Lutfi",
+                                    "id": 11
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
