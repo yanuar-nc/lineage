@@ -1,88 +1,79 @@
 {
-    "marriage": [
+    "wife": {
+        "name": "Mbah Putri",
+        "familyCode": "UNKNOWN"
+    },
+    "husband": {
+        "name": "UNKOWN",
+        "familyCode": "UNKOWN"
+    },
+    "status": "husband-death",
+    "familyCode": "JAKARTA001",
+    "children": [
         {
-            "wife": {
-                "name": "Hawa",
-                "id": 1
-            },
-            "husband": {
-                "name": "Adam",
-                "id": 2
-            },
-            "status": "dead",
-            "child": [
+            "name": "Bule mur",
+            "marriage": [
                 {
-                    "name": "Yanto",
-                    "id": 3,
-                    "marriage": [
-                        {
-                            "wife": {
-                                "name": "Yanto",
-                                "id": 3
-                            },
-                            "husband": {
-                                "name": "Santi",
-                                "id": 4
-                            },
-                            "status": "divorced",
-                            "child": [
-                                {
-                                    "name": "Raja",
-                                    "id": 5,
-                                    "marriage": [
-                                        {
-                                            "wife": {
-                                                "name": "Yuli",
-                                                "id": 6
-                                            },
-                                            "husband": {
-                                                "name": "Raja",
-                                                "id": 5
-                                            },
-                                            "status": "marriage"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
+                    "wife": {
+                        "name": "Bule Mur",
+                        "familyCode": "JAKARTA001"
+                    },
+                    "husband": {
+                        "name": "Warno",
+                        "familyCode": "UNKOWN"
+                    },
+                    "status": "divorce"
+                }
+            ]
+        },
+        {
+            "name": "Seman",
+            "marriage": [
                 {
-                    "name": "Sukirman",
-                    "id": 7,
-                    "marriage": [
+                    "wife": {
+                        "name": "Suparmi",
+                        "familyCode": "LAMPUNG001"
+                    },
+                    "husband": {
+                        "name": "Seman",
+                        "familyCode": "JAKARTA001"
+                    },
+                    "status": "marriage",
+                    "familyCode": "SEMAN001",
+                    "child": [
                         {
-                            "wife": {
-                                "name": "Juleha",
-                                "id": 8
-                            },
-                            "husband": {
-                                "name": "Sukirman",
-                                "id": 7
-                            },
-                            "child": [
+                            "name": "Budi Setiawan",
+                            "status": "marriage",
+                            "familyCode": "BUDI001",
+                            "marriage": [
                                 {
-                                    "name": "Mukidi"
+                                    "wife": {
+                                        "name": "Ani",
+                                        "familyCode": "BAPAKANI001"
+                                    },
+                                    "husband": {
+                                        "name": "Budi Setiawan",
+                                        "familyCode": "SEMAN001"
+                                    }
                                 }
                             ]
                         },
                         {
-                            "wife": {
-                                "name": "Susi",
-                                "id": 9
-                            },
-                            "husband": {
-                                "name": "Sukirman",
-                                "id": 7
-                            },
-                            "child": [
+                            "name": "Yanuar Nurcahyo"
+                        },
+                        {
+                            "name": "Selvia Cahyani",
+                            "status": "marriage",
+                            "marriage": [
                                 {
-                                    "name": "Sutrisna",
-                                    "id": 10
-                                },
-                                {
-                                    "name": "Lutfi",
-                                    "id": 11
+                                    "wife": {
+                                        "name": "Selvia Cahyani",
+                                        "familyCode": "SEMAN001"
+                                    },
+                                    "husband": {
+                                        "name": "Hendra",
+                                        "familyCode": "BAPAKHENDRA001"
+                                    }
                                 }
                             ]
                         }
