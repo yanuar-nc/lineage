@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - database
+        ports:
+            - "9100:9100"
+        networks:
+            - default
+    database:
+        image: postgres:latest
+        restart: always
+        ports:
+            - "5432"
+        volumes:
+            - ./data:/var/lib/postgresql/data
+        networks:
+            - default
+volumes:
+    data:
