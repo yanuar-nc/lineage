@@ -19,7 +19,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	neo4jDB, err := database.GetNeo4jConn(cfg.Neo4jDB.Host, cfg.Neo4jDB.Username, cfg.Neo4jDB.Password)
+	neo4jDB, err := database.GetNeo4jConn(cfg.Neo4jDB.Host, cfg.Neo4jDB.Port, cfg.Neo4jDB.Username, cfg.Neo4jDB.Password)
 	if err != nil {
 		helper.Log(log.FatalLevel, err.Error(), "Main", "neo4jDB")
 		os.Exit(1)

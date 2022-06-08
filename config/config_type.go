@@ -1,10 +1,8 @@
 package config
 
 type ConfigNeo4jDB struct {
-	// Host config
-	Host string
-	// Username config
+	Host     string
 	Username string
-	// Password config
 	Password string
+	Port     string
 }

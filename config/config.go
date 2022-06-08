@@ -80,6 +80,12 @@ func (c *Config) setNeo4j() error {
 	}
 	c.Neo4jDB.Host = neo4jHost
 
+	neo4jPort, ok := os.LookupEnv("NEO4J_DB_PORT")
+	if !ok {
+		errCust.Append(errors.New("NEO4J_DB_PORT env is not loaded"))
+	}
+	c.Neo4jDB.Port = neo4jPort
+
 	neo4jUsername, ok := os.LookupEnv("NEO4J_DB_NAME")
 	if !ok {
 		errCust.Append(errors.New("NEO4J_DB_NAME env is not loaded"))
@@ -90,8 +96,6 @@ func (c *Config) setNeo4j() error {
 	if !ok {
 		errCust.Append(errors.New("NEO4J_DB_PASSWORD env is not loaded"))
 	}
-
-	// set Neo4jDBPassword
 	c.Neo4jDB.Password = neo4jPassword
 
 	return errCust.Message()
