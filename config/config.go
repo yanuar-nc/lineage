@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	dotenv "github.com/joho/godotenv"
+	"github.com/yanuar-nc/lineage/helper"
 )
 
 type Config struct {
@@ -25,32 +26,18 @@ type Config struct {
 func Load() (Config, error) {
 
 	var (
-		c   Config
-		err error
+		c Config
 	)
 
+	errCust := helper.ErrorCustom{}
+
 	// load .env
-	err = dotenv.Load(".env")
-	if err != nil {
-		return c, err
-	}
+	errCust.Append(dotenv.Load(".env")).
+		Append(c.setDevelopmentMode()).
+		Append(c.setHTTPPort()).
+		Append(c.setNeo4j())
 
-	err = c.setDevelopmentMode()
-	if err != nil {
-		return c, err
-	}
-
-	err = c.setHTTPPort()
-	if err != nil {
-		return c, err
-	}
-
-	err = c.setNeo4j()
-	if err != nil {
-		return c, err
-	}
-
-	return c, err
+	return c, errCust.Message()
 }
 
 func (c *Config) setDevelopmentMode() error {
@@ -86,25 +73,26 @@ func (c *Config) setHTTPPort() error {
 }
 
 func (c *Config) setNeo4j() error {
+	errCust := helper.ErrorCustom{}
 	neo4jHost, ok := os.LookupEnv("NEO4J_DB_HOST")
 	if !ok {
-		return errors.New("NEO4J_DB_HOST env is not loaded")
+		errCust.Append(errors.New("NEO4J_DB_HOST env is not loaded"))
 	}
 	c.Neo4jDB.Host = neo4jHost
 
 	neo4jUsername, ok := os.LookupEnv("NEO4J_DB_NAME")
 	if !ok {
-		return errors.New("NEO4J_DB_NAME env is not loaded")
+		errCust.Append(errors.New("NEO4J_DB_NAME env is not loaded"))
 	}
 	c.Neo4jDB.Username = neo4jUsername
 
 	neo4jPassword, ok := os.LookupEnv("NEO4J_DB_PASSWORD")
 	if !ok {
-		return errors.New("NEO4J_DB_PASSWORD env is not loaded")
+		errCust.Append(errors.New("NEO4J_DB_PASSWORD env is not loaded"))
 	}
 
 	// set Neo4jDBPassword
 	c.Neo4jDB.Password = neo4jPassword
 
-	return nil
+	return errCust.Message()
 }

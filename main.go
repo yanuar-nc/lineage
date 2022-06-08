@@ -25,7 +25,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	echoServer, err := NewEchoServer(neo4jDB, neo4jDB)
+	echoServer, err := NewEchoServer(cfg, neo4jDB, neo4jDB)
 	if err != nil {
 		helper.Log(log.FatalLevel, err.Error(), "Main", "echo_server")
 		os.Exit(1)

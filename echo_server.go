@@ -7,18 +7,17 @@ import (
 	"github.com/neo4j/neo4j-go-driver/neo4j"
 	"github.com/yanuar-nc/lineage/config"
 
-	familyDeliveryJson "github.com/yanuar-nc/lineage/src/family/delivery/json"
-	familyRepository "github.com/yanuar-nc/lineage/src/family/repository"
-	familyUsecasePackage "github.com/yanuar-nc/lineage/src/family/usecase"
-
-	"github.com/yanuar-nc/lineage/src/shared/usecase"
+	jsonDelivery "github.com/yanuar-nc/lineage/src/delivery/json"
+	neo4jRepository "github.com/yanuar-nc/lineage/src/repository/neo4j"
+	"github.com/yanuar-nc/lineage/src/usecase"
 
 	"github.com/labstack/echo"
 )
 
 // EchoServer structure
 type EchoServer struct {
-	familyEchoHandler *familyDeliveryJson.EchoHandler
+	echoHandler *jsonDelivery.EchoHandler
+	cfg         config.Config
 }
 
 // Run main function for serving echo http server
@@ -31,24 +30,22 @@ func (s *EchoServer) Run() {
 	})
 
 	// family v1 route
-	familyGroupV1 := e.Group("/family")
-	s.familyEchoHandler.Mount(familyGroupV1)
+	familyGroupV1 := e.Group("/")
+	s.echoHandler.Mount(familyGroupV1)
 
-	listenerPort := fmt.Sprintf(":%d", config.HTTPPort)
+	listenerPort := fmt.Sprintf(":%d", s.cfg.HTTPPort)
 	e.Logger.Fatal(e.Start(listenerPort))
 }
 
 // NewEchoServer function
-func NewEchoServer(writeDb, readDb *neo4j.Session) (*EchoServer, error) {
-	familyRepositoryImpl := familyRepository.NewFamilyRepositoryGorm(writeDb)
+func NewEchoServer(cfg config.Config, writeDb neo4j.Session, readDb neo4j.Session) (*EchoServer, error) {
+	repositoryImpl := neo4jRepository.NewRepositoryNeo4j(writeDb, readDb)
 
-	familyUsecase := familyUsecasePackage.NewFamilyUsecaseImpl(familyRepositoryImpl)
+	u := usecase.NewUsecaseImplementation().PutRepository(repositoryImpl)
+	echoHandler := jsonDelivery.NewEchoHandler(u)
 
-	familyEchoHandler := familyDeliveryJson.NewEchoHandler(familyUsecase)
-
-	u := usecase.NewUsecase().PutFamilyRepository(familyRepositoryImpl)
-	_ = u
 	return &EchoServer{
-		familyEchoHandler: familyEchoHandler,
+		echoHandler: echoHandler,
+		cfg:         cfg,
 	}, nil
 }

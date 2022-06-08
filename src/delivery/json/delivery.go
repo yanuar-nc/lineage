@@ -1,31 +1,28 @@
 package json
 
 import (
-	"net/http"
-
 	"github.com/labstack/echo"
-	"github.com/yanuar-nc/go-boiler-plate/src/family/domain"
-	"github.com/yanuar-nc/go-boiler-plate/src/family/usecase"
-	"github.com/yanuar-nc/golang/helper"
+	"github.com/yanuar-nc/lineage/src/usecase"
 )
 
 // EchoHandler structure
 type EchoHandler struct {
-	familyUsecase usecase.FamilyUsecase
+	usecase usecase.Usecase
 }
 
 // NewEchoHandler function
 // Returns *EchoHandler
-func NewEchoHandler(familyUsecase usecase.FamilyUsecase) *EchoHandler {
-	return &EchoHandler{familyUsecase: familyUsecase}
+func NewEchoHandler(usecase usecase.Usecase) *EchoHandler {
+	return &EchoHandler{usecase: usecase}
 }
 
 // Mount function
 // Params : *echo.Group
 func (h *EchoHandler) Mount(group *echo.Group) {
-	group.POST("", h.Save)
+	// group.POST("", h.Save)
 }
 
+/*
 // Save handler
 func (h *EchoHandler) Save(c echo.Context) error {
 
@@ -57,3 +54,4 @@ func (h *EchoHandler) Save(c echo.Context) error {
 
 	return response.ShowHTTPResponse(c)
 }
+*/
