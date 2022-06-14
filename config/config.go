@@ -84,7 +84,11 @@ func (c *Config) setNeo4j() error {
 	if !ok {
 		errCust.Append(errors.New("NEO4J_DB_PORT env is not loaded"))
 	}
-	c.Neo4jDB.Port = neo4jPort
+	neo4jPortInt, err := strconv.Atoi(neo4jPort)
+	if err != nil {
+		errCust.Append(err)
+	}
+	c.Neo4jDB.Port = neo4jPortInt
 
 	neo4jUsername, ok := os.LookupEnv("NEO4J_DB_NAME")
 	if !ok {

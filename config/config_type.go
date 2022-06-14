@@ -4,5 +4,5 @@ type ConfigNeo4jDB struct {
 	Host     string
 	Username string
 	Password string
-	Port     string
+	Port     int
 }

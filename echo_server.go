@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/neo4j/neo4j-go-driver/neo4j"
+	"github.com/mindstand/gogm/v2"
 	"github.com/yanuar-nc/lineage/config"
 
 	jsonDelivery "github.com/yanuar-nc/lineage/src/delivery/json"
@@ -38,7 +38,7 @@ func (s *EchoServer) Run() {
 }
 
 // NewEchoServer function
-func NewEchoServer(cfg config.Config, writeDb neo4j.Session, readDb neo4j.Session) (*EchoServer, error) {
+func NewEchoServer(cfg config.Config, writeDb gogm.SessionV2, readDb gogm.SessionV2) (*EchoServer, error) {
 	repositoryImpl := neo4jRepository.NewRepositoryNeo4j(writeDb, readDb)
 
 	u := usecase.NewUsecaseImplementation().PutRepository(repositoryImpl)
