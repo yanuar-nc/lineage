@@ -6,22 +6,22 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.3.0
 	github.com/labstack/echo/v4 v4.7.2
-	github.com/mindstand/gogm/v2 v2.3.4
+	github.com/mindstand/gogm/v2 v2.3.5
 	github.com/sirupsen/logrus v1.8.1
 	github.com/yanuar-nc/golang v0.0.0-20220605042324-d3cf8853eaaf
 )
 
 require (
-	github.com/adam-hanna/arrayOperations v1.0.1 // indirect
-	github.com/cornelk/hashmap v1.0.1 // indirect
+	github.com/adam-hanna/arrayOperations v0.2.6 // indirect
+	github.com/cornelk/hashmap v1.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/dchest/siphash v1.2.3 // indirect
+	github.com/dchest/siphash v1.2.1 // indirect
 	github.com/labstack/echo v3.3.10+incompatible // indirect
 	github.com/labstack/gommon v0.3.1 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mindstand/go-cypherdsl v0.2.0 // indirect
-	github.com/neo4j/neo4j-go-driver/v4 v4.4.3 // indirect
+	github.com/neo4j/neo4j-go-driver/v4 v4.4.2-0.20220317151800-1a19fb114732 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/testify v1.7.1 // indirect
