@@ -1,4 +1,4 @@
-package database
+package neo4j
 
 import (
 	"reflect"
@@ -10,50 +10,7 @@ import (
 type tdString string
 type tdInt int
 
-type Family struct {
-	gogm.BaseNode
-
-	Name     string `gogm:"name=name" json:"name"`
-	Username string `gogm:"name=username" json:"username"`
-	Uuid     string `gogm:"name=uuid"`
-
-	Group    *Group    `gogm:"direction=outgoing;relationship=OWNER"`
-	Children []*Person `gogm:"direction=incoming;relationship=CHILDREN"`
-	Wife     []*Person `gogm:"direction=incoming;relationship=WIFE"`
-	Husband  []*Person `gogm:"direction=incoming;relationship=HUSBAND"`
-}
-
-type Group struct {
-	gogm.BaseNode
-
-	ID   string `gogm:"name=id"`
-	Name string `gogm:"name=name"`
-	Uuid string `gogm:"name=uuid"`
-
-	Families []*Family `gogm:"direction=incoming;relationship=OWNER"`
-}
-
-type Person struct {
-	gogm.BaseNode
-
-	ID   string `gogm:"name=id"`
-	Name string `gogm:"name=name"`
-	Uuid string `gogm:"name=uuid"`
-
-	Husband  *Family `gogm:"direction=outgoing;relationship=HUSBAND"`
-	Wife     *Family `gogm:"direction=outgoing;relationship=WIFE"`
-	Children *Family `gogm:"direction=outgoing;relationship=CHILDREN"`
-}
-
-type ContingentUponEdge struct {
-	gogm.BaseNode
-
-	Start       *Group  `json:"group"`
-	End         *Person `json:"person"`
-	Criticality string  `gogm:"name=criticality"`
-}
-
-func GetNeo4jConn(host string, port int, username, password string) (gogm.SessionV2, error) {
+func MakeConnection(host string, port int, username, password string) (gogm.SessionV2, error) {
 	// define your configuration
 	config := gogm.Config{
 		Host: host,

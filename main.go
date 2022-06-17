@@ -7,7 +7,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/yanuar-nc/golang/helper"
 	"github.com/yanuar-nc/lineage/config"
-	"github.com/yanuar-nc/lineage/config/database"
+	neo4jDatabase "github.com/yanuar-nc/lineage/config/database/neo4j"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	neo4jDB, err := database.GetNeo4jConn(cfg.Neo4jDB.Host, cfg.Neo4jDB.Port, cfg.Neo4jDB.Username, cfg.Neo4jDB.Password)
+	neo4jDB, err := neo4jDatabase.MakeConnection(cfg.Neo4jDB.Host, cfg.Neo4jDB.Port, cfg.Neo4jDB.Username, cfg.Neo4jDB.Password)
 	if err != nil {
 		helper.Log(log.FatalLevel, err.Error(), "Main", "neo4jDB")
 		os.Exit(1)

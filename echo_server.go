@@ -39,7 +39,7 @@ func (s *EchoServer) Run() {
 
 // NewEchoServer function
 func NewEchoServer(cfg config.Config, writeDb gogm.SessionV2, readDb gogm.SessionV2) (*EchoServer, error) {
-	repositoryImpl := neo4jRepository.NewRepositoryNeo4j(writeDb, readDb)
+	repositoryImpl := neo4jRepository.NewRepository(writeDb, readDb)
 
 	u := usecase.NewUsecaseImplementation().PutRepository(repositoryImpl)
 	echoHandler := jsonDelivery.NewEchoHandler(u)

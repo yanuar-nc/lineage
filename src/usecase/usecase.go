@@ -1,8 +1,6 @@
 package usecase
 
-import (
-	"github.com/yanuar-nc/lineage/src/repository"
-)
+import "github.com/yanuar-nc/lineage/src/repository"
 
 // UsecaseImplementation struct
 type UsecaseImplementation struct {
