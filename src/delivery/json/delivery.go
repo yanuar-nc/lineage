@@ -1,7 +1,7 @@
 package json
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/yanuar-nc/lineage/src/usecase"
 )
 

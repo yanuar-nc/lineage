@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/yanuar-nc/go-boiler-plate/src/shared/domain"
+	"github.com/yanuar-nc/lineage/src/shared/domain"
 )
 
 type MessageBroker interface {

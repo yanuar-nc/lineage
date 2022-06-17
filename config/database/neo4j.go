@@ -1,51 +1,56 @@
 package database
 
 import (
-	"time"
+	"reflect"
 
+	"github.com/google/uuid"
 	"github.com/mindstand/gogm/v2"
 )
 
 type tdString string
 type tdInt int
 
-//structs for the example (can also be found in decoder_test.go)
-type VertexA struct {
-	// provides required node fields
+type Family struct {
 	gogm.BaseNode
 
-	TestField         string            `gogm:"name=test_field"`
-	TestTypeDefString tdString          `gogm:"name=test_type_def_string"`
-	TestTypeDefInt    tdInt             `gogm:"name=test_type_def_int"`
-	MapProperty       map[string]string `gogm:"name=map_property;properties"`
-	SliceProperty     []string          `gogm:"name=slice_property;properties"`
-	SingleA           *VertexB          `gogm:"direction=incoming;relationship=test_rel"`
-	ManyA             []*VertexB        `gogm:"direction=incoming;relationship=testm2o"`
-	MultiA            []*VertexB        `gogm:"direction=incoming;relationship=multib"`
-	SingleSpecA       *EdgeC            `gogm:"direction=outgoing;relationship=special_single"`
-	MultiSpecA        []*EdgeC          `gogm:"direction=outgoing;relationship=special_multi"`
+	Name     string `gogm:"name=name" json:"name"`
+	Username string `gogm:"name=username" json:"username"`
+	Uuid     string `gogm:"name=uuid"`
+
+	Group    *Group    `gogm:"direction=outgoing;relationship=OWNER"`
+	Children []*Person `gogm:"direction=incoming;relationship=CHILDREN"`
+	Wife     []*Person `gogm:"direction=incoming;relationship=WIFE"`
+	Husband  []*Person `gogm:"direction=incoming;relationship=HUSBAND"`
 }
 
-type VertexB struct {
-	// provides required node fields
+type Group struct {
 	gogm.BaseNode
 
-	TestField  string     `gogm:"name=test_field"`
-	TestTime   time.Time  `gogm:"name=test_time"`
-	Single     *VertexA   `gogm:"direction=outgoing;relationship=test_rel"`
-	ManyB      *VertexA   `gogm:"direction=outgoing;relationship=testm2o"`
-	Multi      []*VertexA `gogm:"direction=outgoing;relationship=multib"`
-	SingleSpec *EdgeC     `gogm:"direction=incoming;relationship=special_single"`
-	MultiSpec  []*EdgeC   `gogm:"direction=incoming;relationship=special_multi"`
+	ID   string `gogm:"name=id"`
+	Name string `gogm:"name=name"`
+	Uuid string `gogm:"name=uuid"`
+
+	Families []*Family `gogm:"direction=incoming;relationship=OWNER"`
 }
 
-type EdgeC struct {
-	// provides required node fields
+type Person struct {
 	gogm.BaseNode
 
-	Start *VertexA
-	End   *VertexB
-	Test  string `gogm:"name=test"`
+	ID   string `gogm:"name=id"`
+	Name string `gogm:"name=name"`
+	Uuid string `gogm:"name=uuid"`
+
+	Husband  *Family `gogm:"direction=outgoing;relationship=HUSBAND"`
+	Wife     *Family `gogm:"direction=outgoing;relationship=WIFE"`
+	Children *Family `gogm:"direction=outgoing;relationship=CHILDREN"`
+}
+
+type ContingentUponEdge struct {
+	gogm.BaseNode
+
+	Start       *Group  `json:"group"`
+	End         *Person `json:"person"`
+	Criticality string  `gogm:"name=criticality"`
 }
 
 func GetNeo4jConn(host string, port int, username, password string) (gogm.SessionV2, error) {
@@ -75,9 +80,23 @@ func GetNeo4jConn(host string, port int, username, password string) (gogm.Sessio
 		// LoadStrategy: gogm.PATH_LOAD_STRATEGY // set to SCHEMA_LOAD_STRATEGY for schema-aware queries which may reduce load on the database
 	}
 
-	_gogm, err := gogm.New(&config, gogm.DefaultPrimaryKeyStrategy, &VertexA{}, &VertexB{}, &EdgeC{})
+	pk := &gogm.PrimaryKeyStrategy{
+		StrategyName: "UUID",
+		DBName:       "uuid",
+		FieldName:    "UUID",
+		Type:         reflect.TypeOf(""),
+		GenIDFunc: func() (id interface{}) {
+			return uuid.New().String()
+		},
+	}
+
+	// register all vertices and edges
+	// this is so that GoGM doesn't have to do reflect processing of each edge in real time
+	// use nil or gogm.DefaultPrimaryKeyStrategy if you only want graph ids
+	// we are using the default key strategy since our vertices are using BaseNode
+	_gogm, err := gogm.New(&config, pk, &Family{}, &Group{}, &Person{}, &ContingentUponEdge{})
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	//param is readonly, we're going to make stuff so we're going to do read write

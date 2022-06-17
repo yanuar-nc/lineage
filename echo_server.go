@@ -11,7 +11,7 @@ import (
 	neo4jRepository "github.com/yanuar-nc/lineage/src/repository/neo4j"
 	"github.com/yanuar-nc/lineage/src/usecase"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 // EchoServer structure
