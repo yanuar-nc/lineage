@@ -18,8 +18,17 @@ func NewEchoHandler(usecase usecase.Usecase) *EchoHandler {
 
 // Mount function
 // Params : *echo.Group
-func (h *EchoHandler) Mount(group *echo.Group) {
-	// group.POST("", h.Save)
+func (h *EchoHandler) Mount(g *echo.Group) {
+	h.PersonGroup(g.Group("person"))
+
+}
+
+func (h *EchoHandler) PersonGroup(group *echo.Group) {
+	group.GET("", h.GetPerson)
+}
+
+func (h *EchoHandler) GetPerson(c echo.Context) error {
+	return nil
 }
 
 /*
